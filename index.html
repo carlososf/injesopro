@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Injesopro | Precisão em Periféricos de Sopro</title>
+    <!-- Carregamento do Tailwind CSS e da fonte Inter (padrão clean) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Configuração de fonte e cores de destaque */
+        :root {
+            --color-primary: #007AFF; /* Apple Blue for highlight */
+            --color-dark: #1F2937; /* Gray 800 for deep contrast */
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F8F8; /* Light gray background for depth */
+            color: var(--color-dark);
+            overflow-x: hidden;
+        }
+        .hero-bg {
+            /* Imagem de fundo para DESKTOP */
+            background-image: linear-gradient(rgba(20, 20, 30, 0.7), rgba(20, 20, 30, 0.7)), url('fundo.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* --- NOVO: Media query para o fundo da tela inicial no mobile --- */
+        @media (max-width: 767px) {
+            .hero-bg {
+                /* Basta colocar a sua imagem para celular com o nome 'fundo-mobile.png' na mesma pasta do site */
+                background-image: linear-gradient(rgba(20, 20, 30, 0.7), rgba(20, 20, 30, 0.7)), url('fundo mobile.png');
+            }
+        }
+
+        .text-gradient {
+            background-image: linear-gradient(to right, var(--color-dark), #4B5563);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .apple-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease;
+        }
+        .apple-shadow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .cta-button {
+            background-color: var(--color-primary);
+            transition: background-color 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #005AEE;
+        }
+        /* Iconography placeholder - using SVG directly for clean lines */
+        .icon {
+            stroke-width: 1.5;
+            color: var(--color-primary);
+        }
+        /* Estilos para a sobreposição na galeria de peças */
+        .gallery-overlay {
+            background: rgba(0, 0, 0, 0.7);
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navbar - Fixo e Minimalista -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="#home">
+                <!-- Para usar o novo logotipo 4k, hospede a imagem e substitua o URL abaixo -->
+                <img src="http://injesopro.com.br/images/logo.png" alt="Logotipo Injesopro" class="h-12 w-auto">
+            </a>
+            <nav id="desktop-menu" class="hidden md:flex space-x-8 text-sm font-semibold text-gray-600">
+                <a href="#home" class="hover:text-gray-900 transition duration-200">Home</a>
+                <a href="#empresa" class="hover:text-gray-900 transition duration-200">Empresa</a>
+                <a href="#galeria" class="hover:text-gray-900 transition duration-200">Galeria</a>
+                <a href="#contato" class="hover:text-gray-900 transition duration-200">Contato</a>
+            </nav>
+            <a href="#contato"
+                class="hidden md:block px-4 py-1.5 text-sm font-semibold rounded-full cta-button text-white shadow-lg shadow-[rgba(0,122,255,0.25)]">
+                Solicitar Cotação
+            </a>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="icon">
+                    <line x1="4" y1="12" x2="20" y2="12"></line>
+                    <line x1="4" y1="6" x2="20" y2="6"></line>
+                    <line x1="4" y1="18" x2="20" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-md">
+             <a href="#home" class="block py-3 px-4 text-sm font-semibold text-gray-700 hover:bg-gray-100">Home</a>
+             <a href="#empresa" class="block py-3 px-4 text-sm font-semibold text-gray-700 hover:bg-gray-100">Empresa</a>
+             <a href="#galeria" class="block py-3 px-4 text-sm font-semibold text-gray-700 hover:bg-gray-100">Galeria</a>
+             <a href="#contato" class="block py-3 px-4 text-sm font-semibold text-gray-700 hover:bg-gray-100">Contato</a>
+             <a href="#contato" class="block py-3 px-4 text-sm font-semibold text-[var(--color-primary)] hover:bg-gray-100">Solicitar Cotação</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. Hero Section (Home) - Grande e Impactante -->
+        <section id="home" class="hero-bg py-24 md:py-40 min-h-[80vh] flex items-center">
+            <div class="max-w-5xl mx-auto px-6 text-center">
+                <h1 class="text-5xl sm:text-7xl md:text-8xl font-extrabold tracking-tighter leading-tight mb-8 text-white">
+                    Seu Periférico com qualidade, prazo e preço.
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-10 font-light">
+                    Periféricos de sopro. Mais de 35 anos de engenharia dedicada à qualidade e inovação tecnológica.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <button onclick="document.getElementById('produtos').scrollIntoView({ behavior: 'smooth' })"
+                        class="px-8 py-3 text-lg font-semibold rounded-full cta-button text-white shadow-xl shadow-[rgba(0,122,255,0.4)] hover:shadow-2xl">
+                        Explore Nossos Produtos
+                    </button>
+                    <a href="#empresa" class="px-8 py-3 text-lg font-semibold rounded-full border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 transition duration-200">
+                        Nossa Engenharia
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Seção de Pilares / Diferenciais -->
+        <section class="py-20 md:py-32 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-center text-4xl md:text-5xl font-bold mb-16 tracking-tighter text-gray-900">
+                    Excelência Forjada em Três Pilares
+                </h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Pilar 1: Qualidade Certificada -->
+                    <div class="p-8 rounded-2xl bg-white border border-gray-100 apple-shadow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="icon mb-4">
+                            <path d="M12 2a10 10 0 1 0 10 10 10 10 0 0 0-10-10z"></path>
+                            <path d="M16 12l-4 4-2-2"></path>
+                        </svg>
+                        <h3 class="text-2xl font-semibold mb-3 text-gray-900">Qualidade Certificada</h3>
+                        <p class="text-gray-500">Utilizamos **Aço Inox, VC-131, VC-150 e VND**. Todos os materiais com certificado de garantia para máxima confiança.</p>
+                    </div>
+
+                    <!-- Pilar 2: Vantagem Técnica -->
+                    <div class="p-8 rounded-2xl bg-white border border-gray-100 apple-shadow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="icon mb-4">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19 12h-1"></path>
+                            <path d="M5 12h-1"></path>
+                            <path d="M12 19v-1"></path>
+                            <path d="M12 5V4"></path>
+                            <path d="M17.65 17.65l-.71-.71"></path>
+                            <path d="M6.34 6.34l-.71-.71"></path>
+                            <path d="M17.65 6.34l-.71.71"></path>
+                            <path d="M6.34 17.65l-.71-.71"></path>
+                        </svg>
+                        <h3 class="text-2xl font-semibold mb-3 text-gray-900">Vantagem Técnica</h3>
+                        <p class="text-gray-500">Nossas peças proporcionam aos clientes a condição de obterem o **melhor resultado final** em seus produtos.</p>
+                    </div>
+
+                    <!-- Pilar 3: Equipe Experiente -->
+                    <div class="p-8 rounded-2xl bg-white border border-gray-100 apple-shadow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="icon mb-4">
+                            <path d="M14 2c4 2 6 5 6 9 0 3-1 6-4 8"></path>
+                            <path d="M10 2c-4 2-6 5-6 9 0 3 1 6 4 8"></path>
+                            <path d="M12 12a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"></path>
+                            <path d="M12 18V6"></path>
+                        </svg>
+                        <h3 class="text-2xl font-semibold mb-3 text-gray-900">Equipe Experiente</h3>
+                        <p class="text-gray-500">Colaboradores com **mais de dez anos** de empresa, garantindo *know-how* e rapidez inigualáveis.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Seção Empresa (Manifesto/Tecnologia) -->
+        <section id="empresa" class="py-20 md:py-32 bg-gray-900 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <p class="text-gray-400 uppercase tracking-widest text-sm font-medium mb-3">Nossa Visão</p>
+                        <h2 class="text-4xl md:text-5xl font-extrabold mb-6 tracking-tighter">
+                            A Engenharia da Inovação em Sopro.
+                        </h2>
+                        <p class="text-gray-300 text-lg mb-8">
+                            Desde Março de 1986, a Injesopro tem sido o alicerce de qualidade para a indústria de transformação. Não apenas fabricamos periféricos; nós os aprimoramos constantemente, acompanhando os avanços tecnológicos do mercado para assegurar que sua produção esteja sempre à frente.
+                        </p>
+                        <p class="text-gray-400 text-base italic border-l-4 border-white pl-4">
+                            "Qualidade, rapidez e baixo custo são a nossa garantia para o seu sucesso."
+                        </p>
+                    </div>
+                    <!-- Imagem da Sede Própria / Linha de Produção -->
+                    <div class="h-96 w-full rounded-2xl overflow-hidden border border-gray-700 apple-shadow">
+                        <img src="images/fabrica/f1.jpg" alt="Fábrica Injesopro" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Seção de Produtos (Galeria Conceitual) -->
+        <section id="produtos" class="py-20 md:py-32 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-center text-4xl md:text-5xl font-bold mb-16 tracking-tighter text-gray-900">
+                    Componentes de Alto Desempenho
+                </h2>
+                <!-- Lista de Produtos Destacados com Foco na Peça -->
+                <div class="space-y-16">
+                    <!-- Produto 1: Pino de Sopro -->
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="order-2 md:order-1">
+                            <h3 class="text-3xl font-bold mb-3 text-gray-900">Pino de Sopro</h3>
+                            <p class="text-gray-500 text-lg mb-4">
+                                Essencial para o ciclo de sopro, nosso pino é usinado com tolerâncias mínimas, garantindo vedação perfeita e ciclos de vida prolongados.
+                            </p>
+                            <p class="text-sm font-semibold text-gray-600 mb-2">Materiais:</p>
+                            <ul class="flex flex-wrap gap-2 text-sm">
+                                <li class="px-3 py-1 rounded-full bg-gray-100 text-gray-700 font-medium">VC-131</li>
+                                <li class="px-3 py-1 rounded-full bg-gray-100 text-gray-700 font-medium">Aço Inox</li>
+                                <li class="px-3 py-1 rounded-full bg-gray-100 text-gray-700 font-medium">Outros Sob Consulta</li>
+                            </ul>
+                        </div>
+                        <!-- Imagem do Produto: Pino de Sopro -->
+                        <div class="order-1 md:order-2 h-72 w-full rounded-2xl overflow-hidden bg-gray-100 border border-gray-200 apple-shadow">
+                            <img src="images/produtos/pino-de-sopro.png" alt="Pino de Sopro Injesopro" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+
+                    <!-- Produto 2: Bocal e Núcleo -->
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <!-- Imagem do Produto: Bocal e Núcleo -->
+                        <div class="h-72 w-full rounded-2xl overflow-hidden bg-gray-100 border border-gray-200 apple-shadow">
+                             <img src="images/produtos/Bocal com Bucha de Ovalização.png" alt="Bocal e Núcleo Injesopro" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h3 class="text-3xl font-bold mb-3 text-gray-900">Bocal com Bucha de Ovalização</h3>
+                            <p class="text-gray-500 text-lg mb-4">
+                                Bocal com Bucha de Ovalização ajustável, fabricado em material especial para não deformar ao retornar. A Injesopro desenvolve o seu projeto de acordo com o seu produto.
+                            </p>
+                            <p class="text-sm font-semibold text-gray-600 mb-2">Outros Produtos Principais:</p>
+                            <ul class="flex flex-wrap gap-2 text-sm">
+                                <li class="px-3 py-1 rounded-full bg-gray-100 text-gray-700 font-medium">Ponteira</li>
+                                <li class="px-3 py-1 rounded-full bg-gray-100 text-gray-700 font-medium">Bucha de Corte</li>
+                                <li class="px-3 py-1 rounded-full bg-gray-100 text-gray-700 font-medium">Anel de Corte</li>
+                                <li class="px-3 py-1 rounded-full bg-gray-100 text-gray-700 font-medium">Estojo Para Pino</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Seção Galeria (Ambientes) - Foco em Qualidade Visual -->
+        <section id="galeria" class="py-20 md:py-32 bg-gray-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-center text-4xl md:text-5xl font-bold mb-16 tracking-tighter text-gray-900">
+                    Nossas Instalações e o Processo
+                </h2>
+                <!-- Tabs para as Galerias -->
+                <div class="flex justify-center mb-8">
+                    <button id="tab-pecas" class="tab-button px-6 py-2 mx-1 text-sm font-semibold rounded-full bg-white text-gray-900 border border-gray-300">Peças (12)</button>
+                    <button id="tab-escritorio" class="tab-button px-6 py-2 mx-1 text-sm font-semibold rounded-full text-gray-600 hover:bg-white hover:border-gray-300">Escritório (7)</button>
+                    <button id="tab-fabrica" class="tab-button px-6 py-2 mx-1 text-sm font-semibold rounded-full text-gray-600 hover:bg-white hover:border-gray-300">Fábrica (10)</button>
+                </div>
+                
+                <div id="gallery-container" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                    <!-- O conteúdo da galeria será inserido dinamicamente aqui -->
+                </div>
+
+                <div class="text-center mt-12">
+                    <p class="text-gray-500 text-sm">Clique ou passe o mouse sobre as peças para ver a descrição.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 6. Seção Contato -->
+        <section id="contato" class="py-20 md:py-32 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-2 gap-16">
+                    <!-- Formulário de Contato -->
+                    <div>
+                        <p class="text-gray-400 uppercase tracking-widest text-sm font-medium mb-3">Conexão</p>
+                        <h2 class="text-4xl md:text-5xl font-extrabold mb-8 tracking-tighter text-gray-900">
+                            Fale com Nossos Especialistas.
+                        </h2>
+                        <form class="space-y-6">
+                            <input type="text" placeholder="Nome Completo" class="w-full p-4 border border-gray-300 rounded-xl focus:ring-var(--color-primary) focus:border-var(--color-primary) transition duration-200" required>
+                            <input type="email" placeholder="E-mail" class="w-full p-4 border border-gray-300 rounded-xl focus:ring-var(--color-primary) focus:border-var(--color-primary) transition duration-200" required>
+                            <input type="tel" placeholder="Telefone (DDD + Número)" class="w-full p-4 border border-gray-300 rounded-xl focus:ring-var(--color-primary) focus:border-var(--color-primary) transition duration-200" required>
+                            <input type="text" placeholder="Assunto" class="w-full p-4 border border-gray-300 rounded-xl focus:ring-var(--color-primary) focus:border-var(--color-primary) transition duration-200" required>
+                            <textarea placeholder="Mensagem" rows="5" class="w-full p-4 border border-gray-300 rounded-xl focus:ring-var(--color-primary) focus:border-var(--color-primary) transition duration-200" required></textarea>
+                            <button type="submit" class="w-full px-8 py-4 text-lg font-semibold rounded-xl cta-button text-white shadow-lg">
+                                Enviar Mensagem
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Informações de Contato e Localização -->
+                    <div class="space-y-10">
+                        <!-- Telefones -->
+                        <div>
+                            <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="icon mr-2">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.08 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81 .7A2 2 0 0 1 22 16.92z"></path>
+                                </svg>
+                                Ligue para Nós
+                            </h3>
+                            <a href="tel:+551135004616" class="text-2xl font-bold mb-1 cta-button text-white inline-block px-4 py-2 rounded-lg bg-gray-900 hover:bg-gray-700 transition duration-200">
+                                (11) 3500-4616
+                            </a>
+                        </div>
+                        
+                        <!-- E-mail -->
+                        <div>
+                            <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon mr-2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                Envie um E-mail
+                            </h3>
+                            <a href="mailto:injesopro@injesopro.com.br" class="text-lg font-medium mb-1 cta-button text-white inline-block px-4 py-2 rounded-lg bg-gray-900 hover:bg-gray-700 transition duration-200">
+                                injesopro@injesopro.com.br
+                            </a>
+                        </div>
+
+                        <!-- Localização -->
+                        <div>
+                            <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="icon mr-2">
+                                    <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                                Endereço
+                            </h3>
+                            <p class="text-lg text-gray-700 font-medium">Rua Pacífico, 250 - Granja Viana</p>
+                            <p class="text-gray-500">Cotia - SP, CEP 06707-065</p>
+                            <p class="text-gray-500 text-sm mt-1">Localizada dentro do Polo Industrial Granja Viana.</p>
+                        </div>
+                        
+                        <!-- Mapa Integrado (Placeholder para iFrame customizado) -->
+                        <div class="w-full h-64 rounded-xl overflow-hidden bg-gray-200 border border-gray-300 flex items-center justify-center">
+                            <iframe 
+                                src="https://maps.google.com/maps?q=Estr.+dos+Estudantes,+485+-+Cotia+-+S%C3%A3o+Paulo,+06707-060&hl=pt-BR&z=14&output=embed" 
+                                class="w-full h-full border-0" 
+                                allowfullscreen="" 
+                                loading="lazy">
+                            </iframe>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="text-center md:text-left mb-6 md:mb-0">
+                <img src="16.png" alt="Logotipo Injesopro no Rodapé" class="h-20 w-auto mb-4 mx-auto md:mx-0">
+                <p class="text-gray-400">&copy; 2025 Injesopro. Todos os direitos reservados.</p>
+                <p class="text-gray-500 text-xs mt-1">Desenvolvido por: Carlos Souza, designer & Delevoper.</p>
+            </div>
+            
+            <div class="flex space-x-6">
+                <a href="https://www.facebook.com/Injesopro" target="_blank" class="text-gray-400 hover:text-white transition duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
+                </a>
+                <a href="https://www.instagram.com/_injesopro_/" target="_blank" class="text-gray-400 hover:text-white transition duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.585-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.585-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.585.069-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.441-.645 1.441-1.44s-.646-1.44-1.441-1.44z"/></svg>
+                </a>
+                <a href="http://www.youtube.com/injesopro" target="_blank" class="text-gray-400 hover:text-white transition duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.228.001-3.668.25-3.668 7.513-3.668 7.513s0 7.263 3.668 7.513c3.597.246 11.624.246 15.228 0 3.668-.25 3.668-7.513 3.668-7.513s0-7.263-3.668-7.513zm-7.615 12.316v-7l6 3.5-6 3.5z"/></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript para interações -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Lógica do Menu Móvel ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // --- Lógica da Galeria ---
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const galleryContainer = document.getElementById('gallery-container');
+
+            const pecasData = [
+                { title: "Ponteira", description: "Peça cilíndrica com rosca, essencial para a injeção precisa do material." },
+                { title: "Conjunto de Bocal e Estojo", description: "Aloja e alinha outras peças críticas do molde, garantindo encaixe perfeito." },
+                { title: "Conjunto de Estojos para Pinos", description: "Garante o alinhamento e a precisão dos pinos durante o ciclo de sopro." },
+                { title: "Bucha de Corte", description: "Anel de alta precisão utilizado para um acabamento de corte perfeito no produto." },
+                { title: "Anel de Corte", description: "Anel com design e recorte específico para o formato exato do produto final." },
+                { title: "Estojo com Guias de Bronze", description: "Assegura movimento suave e de baixo atrito para componentes do molde." },
+                { title: "Núcleo Rotativo", description: "Macho com canais em espiral, projetado especificamente para criar roscas em tampas." },
+                { title: "Pino de Sopro / Coluna Guia", description: "Componente estrutural que guia e suporta o molde durante o ciclo de sopro." },
+                { title: "Ponteira Especial", description: "Ponteira com parafuso de fixação para aplicações que exigem maior segurança." },
+                { title: "Anel de Corte de Precisão", description: "Garante a separação limpa e exata da peça, sem rebarbas." },
+                { title: "Anel de Corte de Alta Durabilidade", description: "Fabricado para produção em larga escala, resistindo a milhares de ciclos." },
+                { title: "Anel de Corte Customizado", description: "Anel com perfil complexo para atender a designs de produtos exclusivos." }
+            ];
+
+            const galleryContent = {
+                'tab-pecas': {
+                    images: Array.from({ length: 12 }, (_, i) => `images/pecas/p${i + 1}.jpg`),
+                    cols: 'grid-cols-2 md:grid-cols-4 lg:grid-cols-5'
+                },
+                'tab-escritorio': {
+                    images: Array.from({ length: 7 }, (_, i) => `images/escritorio/e${i + 1}.jpg`),
+                    cols: 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
+                },
+                'tab-fabrica': {
+                    images: Array.from({ length: 10 }, (_, i) => `images/fabrica/f${i + 1}.jpg`),
+                    cols: 'grid-cols-2 md:grid-cols-4 lg:grid-cols-5'
+                }
+            };
+
+            function updateGallery(tabId) {
+                const data = galleryContent[tabId];
+                
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('bg-white', 'text-gray-900', 'border-gray-300');
+                    btn.classList.add('text-gray-600', 'hover:bg-white');
+                });
+                const activeTab = document.getElementById(tabId);
+                activeTab.classList.add('bg-white', 'text-gray-900', 'border-gray-300');
+                activeTab.classList.remove('text-gray-600', 'hover:bg-white');
+                
+                galleryContainer.className = `grid gap-4 ${data.cols}`;
+                galleryContainer.innerHTML = '';
+
+                data.images.forEach((imageUrl, index) => {
+                    const itemContainer = document.createElement('div');
+                    itemContainer.className = 'gallery-item relative group block h-40 bg-gray-200 rounded-lg overflow-hidden apple-shadow border border-white transition-opacity duration-500 opacity-0';
+
+                    const img = document.createElement('img');
+                    img.src = imageUrl;
+                    img.alt = `Imagem da galeria ${tabId.replace('tab-', '')} ${index + 1}`;
+                    img.className = 'w-full h-full object-cover';
+                    img.loading = 'lazy';
+                    
+                    img.onerror = function() { this.parentElement.style.display = 'none'; };
+
+                    itemContainer.appendChild(img);
+
+                    if (tabId === 'tab-pecas') {
+                        const overlay = document.createElement('div');
+                        overlay.className = 'gallery-overlay absolute inset-0 p-4 flex flex-col justify-end text-white opacity-0 group-hover:opacity-100';
+                        
+                        const title = document.createElement('h3');
+                        title.className = 'font-bold text-sm';
+                        title.textContent = pecasData[index].title;
+
+                        const description = document.createElement('p');
+                        description.className = 'text-xs font-light';
+                        description.textContent = pecasData[index].description;
+
+                        overlay.appendChild(title);
+                        overlay.appendChild(description);
+                        itemContainer.appendChild(overlay);
+
+                        // Evento de clique para mostrar/esconder a descrição no telemóvel
+                        itemContainer.addEventListener('click', (e) => {
+                            e.preventDefault(); // Previne que o link seja aberto
+                             // Esconde outras descrições abertas
+                            document.querySelectorAll('.gallery-overlay').forEach(ov => {
+                                if (ov !== overlay) {
+                                    ov.classList.add('opacity-0');
+                                }
+                            });
+                            overlay.classList.toggle('opacity-0');
+                        });
+                    } else {
+                         // Para outras galerias, o container é um link que abre a imagem
+                        const link = document.createElement('a');
+                        link.href = imageUrl;
+                        link.target = '_blank';
+                        link.appendChild(itemContainer);
+                        galleryContainer.appendChild(link);
+                    }
+
+                     if(tabId === 'tab-pecas'){
+                        galleryContainer.appendChild(itemContainer);
+                    }
+                    
+                    setTimeout(() => {
+                        itemContainer.classList.remove('opacity-0');
+                    }, 50 * (index + 1));
+                });
+            }
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    updateGallery(e.currentTarget.id);
+                });
+            });
+
+            updateGallery('tab-pecas');
+        });
+    </script>
+</body>
+</html>
+
